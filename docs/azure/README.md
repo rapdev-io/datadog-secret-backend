@@ -32,7 +32,7 @@ The following `azure_session` settings are available on all supported Azure Serv
 | azure_certificate_password | Password for Azure Certificate |
 
 In all cases, you will need to specify `keyvaulturl` and with service principal based authentication, the `azure_tenant_id` and `azure_client_id` corresponding to the Azure KeyVault resource.
-Simple string values can be defined adding the config variable `force_string: true`. This will interpret the contents of secret as a string regardless of input.
+Simple string values can be defined adding the config variable `force_string: true`. The `force_string: true` backend configuration setting will interpret the contents of secret as a string regardless of input when defining AWS Secrets Manager or Azure Key Vault backends.
 
 ## Example Session Configurations
 
