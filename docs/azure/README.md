@@ -34,6 +34,10 @@ The following `azure_session` settings are available on all supported Azure Serv
 In all cases, you will need to specify `keyvaulturl` and with service principal based authentication, the `azure_tenant_id` and `azure_client_id` corresponding to the Azure KeyVault resource.
 Simple string values can be defined adding the config variable `force_string: true`. The `force_string: true` backend configuration setting will interpret the contents of secret as a string regardless of input when defining AWS Secrets Manager or Azure Key Vault backends.
 
+This will allow for generating simple string values with or without JSON parsing using the _ secretID. All input will be interpreted as a single string and if it fails to unmarshal the JSON, it will grab the raw string from the input. The secretId then gets coerced as _ and will access DD with the backendID and its secret using the ENC[] notation.
+
+There's a new backend config variable force_string: true that will always interpret w/e is in the secret as a string (no json unmarshal), or if it tries and can't unmarshal, it will just grab the raw string. When either of those conditions are true, the secretId gets coerced as _, so a backendId of "MyKeyVault" with a Secret named "MyKeyVaultSecret" that is force_string: true, or not JSON will be access in Datadog with ENC[MyKeyVault:_]
+
 ## Example Session Configurations
 
 ### Azure Service Principal With Client Credentials
