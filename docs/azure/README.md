@@ -31,7 +31,8 @@ The following `azure_session` settings are available on all supported Azure Serv
 | azure_certificate_path | Path to Application Azure Certificate |
 | azure_certificate_password | Password for Azure Certificate |
 
-In all cases you'll need to specify `keyvaulturl`, and in any service princiapal based authentication, `azure_tenant_id` and `azure_client_id` to correspond to the Azure KeyVault reasource and the application definition being used to authenticate to Azure.
+In all cases you'll need to specify `keyvaulturl`, and in any service principal based authentication, `azure_tenant_id` and `azure_client_id` to correspond to the Azure KeyVault reasource and the application definition being used to authenticate to Azure.
+Simple string values can be defined adding the config variable `force_string: true`. This will interpret the contents of secret as a string regardless of input.
 
 ## Example Session Configurations
 
@@ -43,6 +44,7 @@ backends:
     secret_id: apikey
     backend_type: azure.keyvault
     keyvaulturl: "https://my-keyvault.vault.azure.net"
+    force_string: true
     azure_session:
       azure_tenant_id: "1234abcd-5e6f-7g8h-9ijk-lmnopqrstuv0"
       azure_client_id: "0vutsrqp-onml-kji9-h8g7-f6e5dcba4321"
@@ -57,6 +59,7 @@ backends:
     secret_id: apikey
     backend_type: azure.keyvault
     keyvaulturl: "https://my-keyvault.vault.azure.net"
+    force_string: true
     azure_session:
       azure_tenant_id: "1234abcd-5e6f-7g8h-9ijk-lmnopqrstuv0"
       azure_client_id: "0vutsrqp-onml-kji9-h8g7-f6e5dcba4321"
@@ -72,6 +75,7 @@ backends:
     secret_id: apikey
     backend_type: azure.keyvault
     keyvaulturl: "https://my-keyvault.vault.azure.net"
+    force_string: true
     azure_session:
       azure_tenant_id: "1234abcd-5e6f-7g8h-9ijk-lmnopqrstuv0"
       azure_client_id: "0vutsrqp-onml-kji9-h8g7-f6e5dcba4321"
