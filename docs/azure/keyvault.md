@@ -24,7 +24,7 @@ backends:
     backend_type: azure.keyvault
     keyvaulturl: https://mykeyvault.vault.azure.net
     # interpret contents of secret as string
-    force_string: true
+    force_string: [true|false]
     azure_session:
       azure_client_id: {clientId}
       # ... additional session settings
