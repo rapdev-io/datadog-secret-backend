@@ -52,7 +52,7 @@ Azure Keyvault can hold multiple secret keys and values. For example, assuming a
 }
 ```
 
-Support for simple string values can be defined adding the config variable `force_string: true`. This will interpret the contents of secret as a string regardless of input, e.g. json.Unmarshal()
+Support for simple string values can be defined adding the config variable `force_string: true`. This will interpret the contents of secret as a string regardless of input.
 
 ```yaml
 # /opt/datadog-secret-backend/datadog-secret-backend.yaml
