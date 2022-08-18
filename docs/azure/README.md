@@ -35,7 +35,7 @@ In all cases, you will need to specify `keyvaulturl` and with service principal 
 
 Simple string values can be defined adding the config variable `force_string: true`. The `force_string: true` backend configuration setting will interpret the contents of the Azure Key Vault Secret as a string, even if the stored secret value is valid JSON.
 
-This will allow for generating simple string values with or without JSON parsing using the _ secretID. All input will be interpreted as a single string and if it fails to unmarshal the JSON, it will grab the raw string from the input. The secretId then gets coerced as _ and will access DD with the backendID and its secret using the ENC[] notation.
+When `force_string: false` is defined, or when the backend setting `force_string` is not defined, then the secret value will be interpreted as JSON with simple depth of one (1) and create a secretId with each field name. If the secret value is not valid JSON, then it will behave as if `force_string: true` was defined and will return the full contents of the secret value with secretId `_`.
 
 ## Example Session Configurations
 
