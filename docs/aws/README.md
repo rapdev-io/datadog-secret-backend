@@ -41,7 +41,7 @@ The following `aws_session` settings are available on all supported AWS Service 
 
 In most cases, you'll need to specify `aws_region` to correspond to the region hosting the target Parameter Store (aws.ssm) or Secrets Manager (aws.secrets) secret.
 
-When handling single strings, the ForceString (true) will coerce secrets as strings. All input will be interpreted as strings regardless of valid JSON. The secretId will get coerced as _ and will access DD with the backendID and its secret using the ENC[] notation.
+When handling single strings, the backend configuration setting `force_string: true` will coerce the secret as a string value. As a result, there will be a single secretId of `_` for the backend and can be accessed in the Datadog Agent yaml as `ENC[{backendId}:_]`.
 
 
 ## Example Session Configurations
