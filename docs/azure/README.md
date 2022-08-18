@@ -33,7 +33,7 @@ The following `azure_session` settings are available on all supported Azure Serv
 
 In all cases, you will need to specify `keyvaulturl` and with service principal based authentication, the `azure_tenant_id` and `azure_client_id` corresponding to the Azure KeyVault resource.
 
-Simple string values can be defined adding the config variable `force_string: true`. The `force_string: true` backend configuration setting will interpret the contents of secret as a string regardless of input when defining AWS Secrets Manager or Azure Key Vault backends.
+Simple string values can be defined adding the config variable `force_string: true`. The `force_string: true` backend configuration setting will interpret the contents of the Azure Key Vault Secret as a string, even if the stored secret value is valid JSON.
 
 This will allow for generating simple string values with or without JSON parsing using the _ secretID. All input will be interpreted as a single string and if it fails to unmarshal the JSON, it will grab the raw string from the input. The secretId then gets coerced as _ and will access DD with the backendID and its secret using the ENC[] notation.
 
