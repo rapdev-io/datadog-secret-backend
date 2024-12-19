@@ -25,6 +25,20 @@
 | tls_server | If set, is used to set the SNI host when connecting via TLS |
 | Insecure | Enables or disables SSL verification (bool) |
 
+### Vault Session Settings
+
+| Setting | Auth Method | Description |
+| --- | --- | --- |
+| vault_role_id | AppRole | AppRole ID |
+| vault_secret_id | AppRole | AppRole Secret ID |
+| vault_username | UserPass | Username |
+| vault_password | UserPass | Password |
+| vault_ldap_username | LDAP | LDAP username|
+| vault_ldap_password | LDAP | LDAP password |
+| vault_kubeauth_role | Kubernetes | Kubernetes service account role name |
+| vault_kubeauth_token_env | Kubernetes | Kubernetes service account token environment variable name |
+| vault_kubeauth_token_path | Kubernetes | Kubernetes service account token path |
+
 ## Backend Configuration
 
 The backend configuration for Hashicorp Vault has the following pattern:
@@ -168,4 +182,43 @@ backends:
     vault_session:
       vault_ldap_username: myuser
       vault_ldap_password: mypassword
+```
+
+**Hashicorp Vault Authentication with Kubernetes - Token in Environment**
+
+```yaml
+# /opt/datadog-secret-backend/datadog-secret-backend.yaml
+---
+backends:
+  MySecretBackend:
+    backend_type: hashicorp.vault
+    vault_address: vault_address: http://myvaultaddress.net
+    vault_tls_config:
+        # ... TLS settings if applicable
+    secret_path: /Datadog/Production
+    secrets:
+      - apikey
+    vault_session:
+      vault_kubeauth_role: MyKubernetesRole
+      vault_kubeauth_token_env: MY_KUBERNETES_AUTH_TOKEN
+```
+
+**Hashicorp Vault Authentication with Kubernetes - Token in Volume Mount**
+
+```yaml
+# /opt/datadog-secret-backend/datadog-secret-backend.yaml
+---
+backends:
+  MySecretBackend:
+    backend_type: hashicorp.vault
+    vault_address: vault_address: http://myvaultaddress.net
+    vault_tls_config:
+        # ... TLS settings if applicable
+    secret_path: /Datadog/Production
+    secrets:
+      - apikey
+    vault_session:
+      vault_kubeauth_role: MyKubernetesRole
+      # if not specified, uses the default mount: /var/run/secrets/kubernetes.io/serviceaccount
+      vault_kubeauth_token_path: /my/custom/service/token/mount/point
 ```
