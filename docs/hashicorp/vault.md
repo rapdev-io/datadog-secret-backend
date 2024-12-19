@@ -200,7 +200,7 @@ backends:
       - apikey
     vault_session:
       vault_kubeauth_role: MyKubernetesRole
-      vault_kubeauth_token_env: MY_KUBERNETES_AUTH_TOKEN
+      vault_kubeauth_token_env: MY_KUBERNETES_AUTH_TOKEN_ENV_NAME
 ```
 
 **Hashicorp Vault Authentication with Kubernetes - Token in Volume Mount**
