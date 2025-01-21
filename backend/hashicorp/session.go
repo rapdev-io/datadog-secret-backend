@@ -25,6 +25,7 @@ type VaultSessionBackendConfig struct {
 	VaultKubeAuthRole      string `mapstructure:"vault_kubeauth_role"`
 	VaultKubeAuthTokenEnv  string `mapstructure:"vault_kubeauth_token_env"`
 	VaultKubeAuthTokenPath string `mapstructure:"vault_kubeauth_token_path"`
+	VaultKubeAuthMountPath string `mapstructure:"vault_kubeauth_mount_path"`
 }
 
 // NewVaultConfigFromBackendConfig returns a AuthMethod for Hashicorp vault based on the configuration
@@ -71,6 +72,12 @@ func NewVaultConfigFromBackendConfig(sessionConfig VaultSessionBackendConfig) (a
 		} else if sessionConfig.VaultKubeAuthTokenPath != "" {
 			opts = append(opts, kube.WithServiceAccountTokenPath(
 				sessionConfig.VaultKubeAuthTokenPath,
+			))
+		}
+
+		if sessionConfig.VaultKubeAuthMountPath != "" {
+			opts = append(opts, kube.WithMountPath(
+				sessionConfig.VaultKubeAuthMountPath,
 			))
 		}
 

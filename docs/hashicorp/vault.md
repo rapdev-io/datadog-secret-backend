@@ -27,17 +27,18 @@
 
 ### Vault Session Settings
 
-| Setting | Auth Method | Description |
-| --- | --- | --- |
-| vault_role_id | AppRole | AppRole ID |
-| vault_secret_id | AppRole | AppRole Secret ID |
-| vault_username | UserPass | Username |
-| vault_password | UserPass | Password |
-| vault_ldap_username | LDAP | LDAP username|
-| vault_ldap_password | LDAP | LDAP password |
-| vault_kubeauth_role | Kubernetes | Kubernetes service account role name |
-| vault_kubeauth_token_env | Kubernetes | Kubernetes service account token environment variable name |
-| vault_kubeauth_token_path | Kubernetes | Kubernetes service account token path |
+| Setting                   | Auth Method | Description                                                |
+|---------------------------| --- |------------------------------------------------------------|
+| vault_role_id             | AppRole | AppRole ID                                                 |
+| vault_secret_id           | AppRole | AppRole Secret ID                                          |
+| vault_username            | UserPass | Username                                                   |
+| vault_password            | UserPass | Password                                                   |
+| vault_ldap_username       | LDAP | LDAP username                                              |
+| vault_ldap_password       | LDAP | LDAP password                                              |
+| vault_kubeauth_role       | Kubernetes | Kubernetes service account role name                       |
+| vault_kubeauth_token_env  | Kubernetes | Kubernetes service account token environment variable name |
+| vault_kubeauth_token_path | Kubernetes | Kubernetes service account token path                      |
+| vault_kubeauth_mount_path | Kubernetes | Kubernetes auth mount path                                 |
 
 ## Backend Configuration
 
