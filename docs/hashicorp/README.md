@@ -9,7 +9,7 @@ The `datadog-secret-backend` utility currently supports the following Hashicorp 
 | [hashicorp.vault](vault.md) | [Hashicorp Vault](https://learn.hashicorp.com/tutorials/vault/static-secrets) |
 
 
-## Hashicorp ault Session
+## Hashicorp Vault Session
 
 Hashicorp Vault supports a variety of authentication methods. The ones currently supported by this module are as follows:
 

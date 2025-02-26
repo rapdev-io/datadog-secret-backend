@@ -25,3 +25,6 @@ datadog-secret-backend
 
 # folders
 venv*/
+
+# IDE
+*.iml

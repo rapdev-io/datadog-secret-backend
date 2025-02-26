@@ -9,18 +9,23 @@ package hashicorp
 import (
 	"github.com/hashicorp/vault/api"
 	"github.com/hashicorp/vault/api/auth/approle"
+	kube "github.com/hashicorp/vault/api/auth/kubernetes"
 	"github.com/hashicorp/vault/api/auth/ldap"
 	"github.com/hashicorp/vault/api/auth/userpass"
 )
 
 // VaultSessionBackendConfig is the configuration for a Hashicorp vault backend
 type VaultSessionBackendConfig struct {
-	VaultRoleID       string `mapstructure:"vault_role_id"`
-	VaultSecretID     string `mapstructure:"vault_secret_id"`
-	VaultUserName     string `mapstructure:"vault_username"`
-	VaultPassword     string `mapstructure:"vault_password"`
-	VaultLDAPUserName string `mapstructure:"vault_ldap_username"`
-	VaultLDAPPassword string `mapstructure:"vault_ldap_password"`
+	VaultRoleID            string `mapstructure:"vault_role_id"`
+	VaultSecretID          string `mapstructure:"vault_secret_id"`
+	VaultUserName          string `mapstructure:"vault_username"`
+	VaultPassword          string `mapstructure:"vault_password"`
+	VaultLDAPUserName      string `mapstructure:"vault_ldap_username"`
+	VaultLDAPPassword      string `mapstructure:"vault_ldap_password"`
+	VaultKubeAuthRole      string `mapstructure:"vault_kubeauth_role"`
+	VaultKubeAuthTokenEnv  string `mapstructure:"vault_kubeauth_token_env"`
+	VaultKubeAuthTokenPath string `mapstructure:"vault_kubeauth_token_path"`
+	VaultKubeAuthMountPath string `mapstructure:"vault_kubeauth_mount_path"`
 }
 
 // NewVaultConfigFromBackendConfig returns a AuthMethod for Hashicorp vault based on the configuration
@@ -54,6 +59,34 @@ func NewVaultConfigFromBackendConfig(sessionConfig VaultSessionBackendConfig) (a
 			if err != nil {
 				return nil, err
 			}
+		}
+	}
+
+	if sessionConfig.VaultKubeAuthRole != "" {
+		opts := make([]kube.LoginOption, 0)
+
+		if sessionConfig.VaultKubeAuthTokenEnv != "" {
+			opts = append(opts, kube.WithServiceAccountTokenEnv(
+				sessionConfig.VaultKubeAuthTokenEnv,
+			))
+		} else if sessionConfig.VaultKubeAuthTokenPath != "" {
+			opts = append(opts, kube.WithServiceAccountTokenPath(
+				sessionConfig.VaultKubeAuthTokenPath,
+			))
+		}
+
+		if sessionConfig.VaultKubeAuthMountPath != "" {
+			opts = append(opts, kube.WithMountPath(
+				sessionConfig.VaultKubeAuthMountPath,
+			))
+		}
+
+		auth, err = kube.NewKubernetesAuth(
+			sessionConfig.VaultKubeAuthRole,
+			opts...,
+		)
+		if err != nil {
+			return nil, err
 		}
 	}
 
